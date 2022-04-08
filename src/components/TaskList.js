@@ -1,15 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { VStack, Skeleton, Flex, Spacer } from '@chakra-ui/react';
-import { CheckIcon, StarIcon } from '@chakra-ui/icons';
-import { Task } from './Task';
-import { EmptyState } from './EmptyState';
+import PropTypes from 'prop-types'
+import { VStack, Skeleton, Flex, Spacer } from '@chakra-ui/react'
+import { CheckIcon, StarIcon } from '@chakra-ui/icons'
+import { Task } from './Task'
+import { EmptyState } from './EmptyState'
 
 const LoadingTask = () => (
   <Flex
     _notLast={{
       borderBottom: '1px',
-      borderColor: 'gray.200',
+      borderColor: 'gray.200'
     }}
     bg="white"
     alignItems="center"
@@ -24,20 +23,20 @@ const LoadingTask = () => (
     <Spacer />
     <StarIcon aria-hidden="true" height={4} width={4} color="gray.200" />
   </Flex>
-);
+)
 
-export function TaskList({
+export function TaskList ({
   loading,
   tasks,
   onTogglePinTask,
   onArchiveTask,
-  onEditTitle,
+  onEditTitle
 }) {
   const events = {
     onTogglePinTask,
     onArchiveTask,
-    onEditTitle,
-  };
+    onEditTitle
+  }
 
   if (loading) {
     return (
@@ -46,7 +45,7 @@ export function TaskList({
         <LoadingTask />
         <LoadingTask />
       </VStack>
-    );
+    )
   }
 
   if (tasks.length === 0) {
@@ -57,13 +56,13 @@ export function TaskList({
         title="You have no tasks"
         subtitle="Sit back and relax"
       />
-    );
+    )
   }
 
   const tasksInOrder = [
     ...tasks.filter((t) => t.state === 'TASK_PINNED'),
-    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
-  ];
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED')
+  ]
 
   return (
     <VStack as="ul" align="stretch" spacing={0} aria-label="tasks">
@@ -71,7 +70,7 @@ export function TaskList({
         <Task key={task.id} task={task} {...events} />
       ))}
     </VStack>
-  );
+  )
 }
 
 TaskList.propTypes = {
@@ -79,9 +78,9 @@ TaskList.propTypes = {
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
   onTogglePinTask: PropTypes.func.isRequired,
   onArchiveTask: PropTypes.func.isRequired,
-  onEditTitle: PropTypes.func.isRequired,
-};
+  onEditTitle: PropTypes.func.isRequired
+}
 
 TaskList.defaultProps = {
-  loading: false,
-};
+  loading: false
+}

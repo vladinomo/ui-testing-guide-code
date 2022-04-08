@@ -1,6 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Flex, Text } from '@chakra-ui/react';
+import PropTypes from 'prop-types'
+import { Flex, Text } from '@chakra-ui/react'
 
 export const EmptyState = ({ Icon, title, subtitle, ...props }) => (
   <Flex
@@ -20,10 +19,10 @@ export const EmptyState = ({ Icon, title, subtitle, ...props }) => (
       {subtitle}
     </Text>
   </Flex>
-);
+)
 
 EmptyState.propTypes = {
   Icon: PropTypes.elementType.isRequired,
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
-};
+  subtitle: PropTypes.string.isRequired
+}

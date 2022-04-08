@@ -1,53 +1,53 @@
-import { useReducer, useEffect } from 'react';
+import { useReducer, useEffect } from 'react'
 
-function getTasks(options) {
-  return fetch('/tasks', options).then((res) => res.json());
+function getTasks (options) {
+  return fetch('/tasks', options).then((res) => res.json())
 }
 
-function updateTask(tasks, id, updatedTask) {
+function updateTask (tasks, id, updatedTask) {
   return tasks.map((task) =>
     task.id === id ? { ...task, ...updatedTask } : task
-  );
+  )
 }
 
 export const reducer = (tasks, action) => {
   switch (action.type) {
     case 'UPDATE_TASKS':
-      return action.tasks;
+      return action.tasks
     case 'ARCHIVE_TASK':
-      return updateTask(tasks, action.id, { state: 'TASK_ARCHIVED' });
+      return updateTask(tasks, action.id, { state: 'TASK_ARCHIVED' })
     case 'PIN_TASK':
-      return updateTask(tasks, action.id, { state: 'TASK_PINNED' });
+      return updateTask(tasks, action.id, { state: 'TASK_PINNED' })
     case 'INBOX_TASK':
-      return updateTask(tasks, action.id, { state: 'TASK_INBOX' });
+      return updateTask(tasks, action.id, { state: 'TASK_INBOX' })
     case 'EDIT_TITLE':
-      return updateTask(tasks, action.id, { title: action.title });
+      return updateTask(tasks, action.id, { title: action.title })
     default:
-      return tasks;
+      return tasks
   }
-};
+}
 
-export function useTasks() {
-  const [tasks, dispatch] = useReducer(reducer, []);
+export function useTasks () {
+  const [tasks, dispatch] = useReducer(reducer, [])
 
   useEffect(() => {
-    const abortController = new AbortController();
-    const signal = abortController.signal;
+    const abortController = new AbortController()
+    const signal = abortController.signal
 
     getTasks({ signal })
       .then(({ tasks }) => {
-        dispatch({ type: 'UPDATE_TASKS', tasks });
+        dispatch({ type: 'UPDATE_TASKS', tasks })
       })
       .catch((error) => {
         if (!abortController.signal.aborted) {
-          console.log(error);
+          console.log(error)
         }
-      });
+      })
 
     return () => {
-      abortController.abort();
-    };
-  }, []);
+      abortController.abort()
+    }
+  }, [])
 
-  return [tasks, dispatch];
+  return [tasks, dispatch]
 }

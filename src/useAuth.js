@@ -1,35 +1,35 @@
-import { useReducer } from 'react';
+import { useReducer } from 'react'
 
-function authenticate(options) {
+function authenticate (options) {
   return fetch('/authenticate', {
     method: 'POST',
-    ...options,
-  }).then((res) => res.json());
+    ...options
+  }).then((res) => res.json())
 }
 
 const reducer = (user, action) => {
   switch (action.type) {
     case 'LOG_IN':
-      return action.user;
+      return action.user
     case 'LOG_OUT':
-      return null;
+      return null
     default:
-      return user;
+      return user
   }
-};
+}
 
-export function useAuth() {
-  const [user, dispatch] = useReducer(reducer, null);
+export function useAuth () {
+  const [user, dispatch] = useReducer(reducer, null)
 
   const logIn = ({ username, password }) => {
     authenticate(username, password)
       .then(({ user }) => {
-        dispatch({ type: 'LOG_IN', user });
+        dispatch({ type: 'LOG_IN', user })
       })
       .catch((error) => {
-        console.log(error);
-      });
-  };
+        console.log(error)
+      })
+  }
 
-  return [user, logIn];
+  return [user, logIn]
 }

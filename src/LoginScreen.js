@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import {
   chakra,
   Box,
@@ -10,8 +9,8 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Stack,
-} from '@chakra-ui/react';
+  Stack
+} from '@chakra-ui/react'
 
 const LoginForm = ({ onSubmit, ...props }) => (
   <chakra.form
@@ -19,17 +18,17 @@ const LoginForm = ({ onSubmit, ...props }) => (
     py={6}
     px={5}
     onSubmit={(event) => {
-      event.preventDefault();
-      const elementsArray = [...event.target.elements];
+      event.preventDefault()
+      const elementsArray = [...event.target.elements]
       const formData = elementsArray.reduce((acc, elem) => {
         if (elem.id) {
-          acc[elem.id] = elem.value;
+          acc[elem.id] = elem.value
         }
 
-        return acc;
-      }, {});
+        return acc
+      }, {})
 
-      onSubmit(formData);
+      onSubmit(formData)
     }}
     {...props}
   >
@@ -58,11 +57,11 @@ const LoginForm = ({ onSubmit, ...props }) => (
       </Button>
     </Stack>
   </chakra.form>
-);
+)
 
 LoginForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+  onSubmit: PropTypes.func.isRequired
+}
 
 export const LoginScreen = ({ onLogIn }) => (
   <Flex height="100vh" alignItems="center">
@@ -78,8 +77,8 @@ export const LoginScreen = ({ onLogIn }) => (
       <LoginForm onSubmit={onLogIn} />
     </Box>
   </Flex>
-);
+)
 
 LoginScreen.propTypes = {
-  onLogIn: PropTypes.func.isRequired,
-};
+  onLogIn: PropTypes.func.isRequired
+}
